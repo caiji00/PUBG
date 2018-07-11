@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+*{margin: 0;padding: 0;}
+header{position: fixed;top: 0;left: 0; background-color: #333 ;
+height: 30px;width: 100%;z-index: 999; }
+header .log{width: 40%}
+header .navi ul{display:flex;}
+header .navi ul li{width: 25%;}
+header a{color: rgb(242, 240, 255);}
+.first_box{margin-top:30px;}
+
+body{height:100%;overflow: hidden;}
+
+.contener{
+    transition: all 1s;
+}
+
+video{
+    display: block;
+    width: 100%;
+}
+
+.sprite{background:url('sprite.png');transform: scale(0.5);}
+.logo{background:url('logo_b.png');transform: scale(0.5);}
+
+.first_box,.second_box{position: relative;}
+
+
+.first_box .first_bg{position: absolute;
+
+height: 255px;
+
+bottom: 253px;
+
+left: 32%;
+
+width: 690px;
+
+background-position: 0 -82px;}
+
+.first_box .first_bg_1{position: absolute;
+
+height: 87px;
+
+bottom: 525px;
+
+left: 48%;
+
+width: 86px;
+
+background-position: 0px 0px;}
+
+.second_bg{position: absolute;width: 370px;height: 170px;
+bottom: 260px; left: 40%; background-position: -377px  -505px}
+
+.left_nav{background: url(bg_nav.png);
+position: absolute;
+left: 4px;
+top: 36px;
+width: 42px;
+height: 936px;
+z-index: 2;}
+.nav_content{color: #fff}
+.nav_content li{position: absolute; left: 33px;width: 100px}
+.nav_content li:nth-child(1){top: 55px;}
+.nav_content li:nth-child(2){top: 255px}
+.nav_content li:nth-child(3){top: 462px}
+.nav_content li:nth-child(4){top:662px}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="log">
+
+        </div>
+        <div class="navi">
+            <ul>
+                <li>
+                    <a href="">官网首页</a>
+                </li>
+                <li>
+                    <a href="">绑定查询</a>
+                </li>
+                <li>
+                    <a href="">国服预约</a>
+                </li>
+                <li>
+                    <a href="">老兵绑定</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 左边导航条 -->
+	<div class="left_nav">
+        <ul class="nav_content">
+            <li onclick="changeTo(0)">first</li>
+            <li  onclick="changeTo(1)">second</li>
+            <li  onclick="changeTo(2)">third</li>
+            <li>forth</li>
+        </ul>
+</div>
+
+    <div class="contener">
+
+
+    <div class="first_box">
+        <video  src="http://videooc.tc.qq.com/vcloud1022.tc.qq.com/1022_5dad5415ceb249339a0bf9662bfd414e.f0.mp4?vkey=0A43CD29D882046850E84BF2F39C202DD2C783F472FAD99EFCA49DD5B9E80ED6607E4153A87B505AD9E60BA6CC2C53BF1631DB18C8AD19C77EA5E38669EAA0F92395310B3B11178C89D1542A1B21870AB499DC1F598A9DD9&sha=0" autoplay="" loop="" ></video>
+        <p class="first_bg_1  sprite">
+
+        </p>
+        <p class="first_bg logo">
+
+        </p>
+    </div>
+
+    <div class="second_box">
+        <video src="http://videooc.tc.qq.com/vcloud1022.tc.qq.com/1022_e48ffd8a30074766bfae4ba50cbbbce5.f0.mp4?vkey=1D28FE9D733BB3BD7212516B6021CE4F21FD5BBCD01A33C03A1DDB2766FB03D88966DB8741A5FD6AD22573567B776606166DCC9232F41B32EE419EC3BA1345740F4B57B0DAA17B5854FFEA67F59801C548593D7EA2ECF45A&sha=0" ></video>
+        <p class="second_bg sprite">
+
+        </p>
+     </div>
+     <div class = "third_box">
+         <video src = "http://videooc.tc.qq.com/vcloud1022.tc.qq.com/1022_18cc6cba2ebb4635aa06d2020134d1be.f0.mp4?vkey=B35C29800A1FB3F3E95627C89A1387DAC00916D02E52A19E765DBA410DC428B4C082C7DD657540181FA2AB66F4E7665704C5F7607A33619F031FFE3851F986A5E5828FE68121E1A90E5529289C8D231E7D2F7AA3AF363A3C&sha=0"></video>
+    </div>
+     </div>
+
+    <script type="text/javascript">
+
+    var nav_li_boxs = document.querySelectorAll('.nav_content > li')
+
+    var index = 0
+    var video_boxs = document.querySelectorAll('.contener > div')
+    var length = video_boxs.length-1
+
+
+    //封装向上向下函数
+    function ChangeBox(event,number = -1){
+        //盒子上下限处理
+
+        video_boxs[index].querySelector('video').pause()
+
+        nav_li_boxs[index].style.color = "#fff"//恢复颜色
+
+        if(number >= 0){
+            //点击左侧导航直接跳转到制定的视频
+            index = number
+        }else{
+            if(event == 'Down'){
+                index = ++index >= length ? length:index
+            }
+            if(event == 'Up'){
+                index = --index <=0 ? 0 :index
+            }
+        }
+        var y = -1100*index
+    document.querySelector('.contener').style.webkitTransform = 
+    'translate(0,'+y+'px)'
+
+    nav_li_boxs[index].style.color = "yellow"//高亮
+    video_boxs[index].querySelector('video').play()
+
+    isChange = false
+    }
+
+
+
+    function UpDown(event){
+        step = ''
+        if (event.key == 'ArrowDown') {
+            step = 'Down'
+        }
+        
+        if(event.key == 'ArrowUp'){
+            step = 'Up'
+        }
+        ChangeBox(step)
+    }
+        window.addEventListener('keydown',UpDown,true)
+
+
+
+        var isChange = false
+        //鼠标滚轮触发后的事件
+
+        function scrollFunc(event){
+            var step = ''
+            //代表向上还是向下
+            
+            var e = event||window.event//火狐第一个，其他第二个
+
+            var num = e.detail == 0? -e.wheelDelta :e.detail//火狐以外的用第一个
+        
+        if (num > 0) {
+            step = 'Down'
+        }else{
+            step = 'Up'
+        }
+
+
+        if(!isChange){
+            setTimeout(function(){
+                ChangeBox(step)},200)
+            isChange = true//改为正在切换
+        }
+    }
+        //火狐
+        if(document.addEventListener){
+            window.addEventListener('DOMMouseScroll',scrollFunc,false)
+        }
+        //360浏览器
+        window.onmousewheel = document.onmousewheel = scrollFunc
+
+    function highlight(index_3){
+        nav_li_boxs[index].style.color = "#fff"
+        //修改index页面的属性
+        nav_li_boxs[index_3].style.color = "yellow"
+    }
+        
+    function changeTo(index_2){
+        ChangeBox('',index_2)
+    }
+
+
+
+    </script>
+</body>
+</html>
